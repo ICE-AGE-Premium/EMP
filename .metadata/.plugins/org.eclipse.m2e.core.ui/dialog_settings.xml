@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="C:\Users\ovedo\OneDrive\Desktop\employee_management"/>
+			<item value="C:\Users\ovedo\OneDrive\Desktop\airport-ucu-2022-develop\airport"/>
+			<item value="C:\Users\ovedo\OneDrive\airport-ucu-2022\airport"/>
+			<item value="C:\Users\ovedo\OneDrive\employee_management\employee_management"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+</section>
