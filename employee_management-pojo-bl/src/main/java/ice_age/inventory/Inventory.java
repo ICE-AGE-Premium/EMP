@@ -47,7 +47,6 @@ public class Inventory extends AbstractPersistentEntity<DynamicEntityKey> {
         return this;
     }
     
-
     public String getInvNumber() {
         return invNumber;
     }
