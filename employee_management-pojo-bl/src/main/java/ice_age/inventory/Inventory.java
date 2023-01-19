@@ -87,15 +87,15 @@ public class Inventory extends AbstractPersistentEntity<DynamicEntityKey> {
     @MapTo
     @Required
     @Title(value = "Inventory Type", desc = "Inventory Type that this inventory belongs to")
-    private String invType;
+    private InventoryType invType;
 
     @Observable
-    public Inventory setInvType(final String invType) {
+    public Inventory setInvType(final InventoryType invType) {
         this.invType = invType;
         return this;
     }
 
-    public String getInvType() {
+    public InventoryType getInvType() {
         return invType;
     }
     

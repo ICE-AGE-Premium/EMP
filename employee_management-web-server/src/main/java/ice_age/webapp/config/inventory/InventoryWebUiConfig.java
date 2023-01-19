@@ -8,6 +8,7 @@ import java.util.Optional;
 import com.google.inject.Injector;
 
 import ice_age.inventory.Inventory;
+import ice_age.inventory.InventoryType;
 import ice_age.common.LayoutComposer;
 import ice_age.common.StandardActions;
 
@@ -73,7 +74,7 @@ public class InventoryWebUiConfig {
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
                 .addCrit(MetaModels.Inventory_).asMulti().autocompleter(Inventory.class).also()
-                .addCrit(MetaModels.Inventory_.invType()).asMulti().text().also()
+                .addCrit(MetaModels.Inventory_.invType()).asMulti().autocompleter(InventoryType.class).also()
                 .addCrit(MetaModels.Inventory_.employee()).asMulti().text().also()
                 .addCrit(MetaModels.Inventory_.dop()).asRange().date().also()
                 .addCrit(MetaModels.Inventory_.manufacturer()).asMulti().text().also()
@@ -112,7 +113,7 @@ public class InventoryWebUiConfig {
                 .addProp(MetaModels.Inventory_.invNumber()).asSinglelineText().also()
                 .addProp(MetaModels.Inventory_.employee()).asSinglelineText().also()
                 // row 2
-                .addProp(MetaModels.Inventory_.invType()).asMultilineText().also()
+                .addProp(MetaModels.Inventory_.invType()).asAutocompleter().also()
                 .addProp(MetaModels.Inventory_.dop()).asDatePicker().also()
                 // row 3
                 .addProp(MetaModels.Inventory_.manufacturer()).asSinglelineText().also()
