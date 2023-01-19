@@ -21,6 +21,7 @@ import ua.com.fielden.platform.web.view.master.api.impl.SimpleMasterBuilder;
 import ua.com.fielden.platform.web.view.master.api.IMaster;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
 import ice_age.main.menu.inventory.MiInventory;
+import metamodels.MetaModels;
 import ua.com.fielden.platform.web.centre.EntityCentre;
 import ua.com.fielden.platform.web.view.master.EntityMaster;
 import static ua.com.fielden.platform.web.PrefDim.mkDim;
@@ -55,7 +56,7 @@ public class InventoryWebUiConfig {
      * @return created entity centre
      */
     private EntityCentre<Inventory> createCentre(final Injector injector, final IWebUiBuilder builder) {
-        final String layout = LayoutComposer.mkGridForCentre(1, 2);
+        final String layout = LayoutComposer.mkVarGridForCentre(2, 1, 2, 2);
 
         final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Inventory.class);
         final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Inventory.class);
@@ -71,17 +72,26 @@ public class InventoryWebUiConfig {
                 .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
-                .addCrit("this").asMulti().autocompleter(Inventory.class).also()
-                .addCrit("desc").asMulti().text()
+                .addCrit(MetaModels.Inventory_).asMulti().autocompleter(Inventory.class).also()
+                .addCrit(MetaModels.Inventory_.invType()).asMulti().text().also()
+                .addCrit(MetaModels.Inventory_.employee()).asMulti().text().also()
+                .addCrit(MetaModels.Inventory_.dop()).asRange().date().also()
+                .addCrit(MetaModels.Inventory_.manufacturer()).asMulti().text().also()
+                .addCrit(MetaModels.Inventory_.model()).asMulti().text().also()
+                .addCrit(MetaModels.Inventory_.comment()).asMulti().text()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
                 .withScrollingConfig(standardStandaloneScrollingConfig(0))
-                .addProp("this").order(1).asc().minWidth(100)
-                    .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", Inventory.ENTITY_TITLE))
+                .addProp(MetaModels.Inventory_).order(1).asc().minWidth(100)
+                    .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %sss.", Inventory.ENTITY_TITLE))
                     .withAction(standardEditAction).also()
-                .addProp("desc").minWidth(100)
-                //.addProp("prop").minWidth(100).withActionSupplier(builder.getOpenMasterAction(Entity.class)).also()
+                .addProp(MetaModels.Inventory_.employee()).minWidth(100).also()
+                .addProp(MetaModels.Inventory_.invType()).minWidth(100).also()
+                .addProp(MetaModels.Inventory_.manufacturer()).minWidth(100).also()
+                .addProp(MetaModels.Inventory_.model()).width(150).also()
+                .addProp(MetaModels.Inventory_.dop()).width(70).also()
+                .addProp(MetaModels.Inventory_.comment()).minWidth(150)
                 .addPrimaryAction(standardEditAction)
                 .build();
 
@@ -95,11 +105,20 @@ public class InventoryWebUiConfig {
      * @return created entity master
      */
     private EntityMaster<Inventory> createMaster(final Injector injector) {
-        final String layout = LayoutComposer.mkGridForMasterFitWidth(1, 2);
+        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(2, 2, 2, 1);
 
         final IMaster<Inventory> masterConfig = new SimpleMasterBuilder<Inventory>().forEntity(Inventory.class)
-                .addProp("key").asSinglelineText().also()
-                .addProp("desc").asMultilineText().also()
+                // row 1
+                .addProp(MetaModels.Inventory_.invNumber()).asSinglelineText().also()
+                .addProp(MetaModels.Inventory_.employee()).asSinglelineText().also()
+                // row 2
+                .addProp(MetaModels.Inventory_.invType()).asMultilineText().also()
+                .addProp(MetaModels.Inventory_.dop()).asDateTimePicker().also()
+                // row 3
+                .addProp(MetaModels.Inventory_.manufacturer()).asSinglelineText().also()
+                .addProp(MetaModels.Inventory_.model()).asSinglelineText().also()
+                // row 4
+                .addProp(MetaModels.Inventory_.comment()).asMultilineText().also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), LayoutComposer.mkActionLayoutForMaster())

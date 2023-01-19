@@ -14,8 +14,8 @@ import ua.com.fielden.platform.dao.IEntityDao;
 public interface InventoryCo extends IEntityDao<Inventory> {
 
     static final IFetchProvider<Inventory> FETCH_PROVIDER = EntityUtils.fetch(Inventory.class).with(
-            MetaModels.Inventory_.inv_number(), MetaModels.Inventory_.dop(), MetaModels.Inventory_.comment(),
-            MetaModels.Inventory_.employee(), MetaModels.Inventory_.inv_type(), MetaModels.Inventory_.model(),
+            MetaModels.Inventory_.invNumber(), MetaModels.Inventory_.dop(), MetaModels.Inventory_.comment(),
+            MetaModels.Inventory_.employee(), MetaModels.Inventory_.invType(), MetaModels.Inventory_.model(),
             MetaModels.Inventory_.manufacturer());
 
 }

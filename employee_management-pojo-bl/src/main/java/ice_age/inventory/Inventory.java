@@ -36,18 +36,19 @@ public class Inventory extends AbstractPersistentEntity<DynamicEntityKey> {
     
     @IsProperty
     @MapTo
-    @Title(value = "Inv_number", desc = "Inventory number that should be unique")
+    @Title(value = "InvNumber", desc = "Inventory number that should be unique")
     @CompositeKeyMember(1)
-    private Integer inv_number;
+    private String invNumber;
 
     @Observable
-    public Inventory setInv_number(final Integer inv_number) {
-        this.inv_number = inv_number;
+    public Inventory setInvNumber(final String invNumber) {
+        this.invNumber = invNumber;
         return this;
     }
+    
 
-    public Integer getInv_number() {
-        return inv_number;
+    public String getInvNumber() {
+        return invNumber;
     }
     
     @IsProperty
@@ -57,12 +58,12 @@ public class Inventory extends AbstractPersistentEntity<DynamicEntityKey> {
     private String employee;
 
     @Observable
-    public Inventory setEmployeeName(final String employee) {
+    public Inventory setEmployee(final String employee) {
         this.employee = employee;
         return this;
     }
-
-    public String getEmployeeName() {
+    
+    public String getEmployee() {
         return employee;
     }
     
@@ -85,16 +86,16 @@ public class Inventory extends AbstractPersistentEntity<DynamicEntityKey> {
     @MapTo
     @Required
     @Title(value = "Inventory Type", desc = "Inventory Type that this inventory belongs to")
-    private String inv_type;
+    private String invType;
 
     @Observable
-    public Inventory setInvType(final String inv_type) {
-        this.inv_type = inv_type;
+    public Inventory setInvType(final String invType) {
+        this.invType = invType;
         return this;
     }
 
     public String getInvType() {
-        return inv_type;
+        return invType;
     }
     
     @IsProperty

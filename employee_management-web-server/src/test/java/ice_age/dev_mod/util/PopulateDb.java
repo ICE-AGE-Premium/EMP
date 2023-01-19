@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import ice_age.config.ApplicationDomain;
 import ice_age.data.IDomainData;
+import ice_age.inventory.Inventory;
 import ice_age.utils.PostgresqlDbUtils;
 
 import ua.com.fielden.platform.devdb_support.DomainDrivenDataPopulation;
@@ -80,6 +81,8 @@ public class PopulateDb extends DomainDrivenDataPopulation implements IDomainDat
 
         setupUser(User.system_users.SU, "iceage");
         setupPerson(User.system_users.SU, "iceage");
+        
+        save(new_composite(Inventory.class, "Inv-01").setEmployee("sjmdk").setInvType("fjsdkl"));
 
         LOGGER.info("Completed database creation and population.");
     }
