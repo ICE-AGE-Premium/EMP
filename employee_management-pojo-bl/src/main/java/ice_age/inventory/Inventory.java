@@ -9,6 +9,7 @@ import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.KeyTitle;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
+import ua.com.fielden.platform.entity.annotation.DateOnly;
 import ua.com.fielden.platform.entity.annotation.IsProperty;
 import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
@@ -69,6 +70,7 @@ public class Inventory extends AbstractPersistentEntity<DynamicEntityKey> {
     
     @IsProperty
     @MapTo
+    @DateOnly
     @Title(value = "Date of purchase", desc = "Date of purchase of the inventory unit")
     private Date dop;
 

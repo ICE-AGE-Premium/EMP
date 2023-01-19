@@ -113,7 +113,7 @@ public class InventoryWebUiConfig {
                 .addProp(MetaModels.Inventory_.employee()).asSinglelineText().also()
                 // row 2
                 .addProp(MetaModels.Inventory_.invType()).asMultilineText().also()
-                .addProp(MetaModels.Inventory_.dop()).asDateTimePicker().also()
+                .addProp(MetaModels.Inventory_.dop()).asDatePicker().also()
                 // row 3
                 .addProp(MetaModels.Inventory_.manufacturer()).asSinglelineText().also()
                 .addProp(MetaModels.Inventory_.model()).asSinglelineText().also()
