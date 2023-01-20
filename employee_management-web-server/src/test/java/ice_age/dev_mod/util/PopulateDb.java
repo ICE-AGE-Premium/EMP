@@ -10,11 +10,15 @@ import org.hibernate.dialect.Dialect;
 import org.hibernate.dialect.H2Dialect;
 import org.hibernate.dialect.PostgreSQL82Dialect;
 
+
 import static org.apache.logging.log4j.LogManager.getLogger;
 import org.apache.logging.log4j.Logger;
 
 import ice_age.config.ApplicationDomain;
 import ice_age.data.IDomainData;
+import ice_age.employee.Employee;
+import ice_age.inventory.Inventory;
+import ice_age.inventory.InventoryType;
 import ice_age.utils.PostgresqlDbUtils;
 
 import ua.com.fielden.platform.devdb_support.DomainDrivenDataPopulation;
@@ -80,6 +84,14 @@ public class PopulateDb extends DomainDrivenDataPopulation implements IDomainDat
 
         setupUser(User.system_users.SU, "iceage");
         setupPerson(User.system_users.SU, "iceage");
+        
+        final Employee employee = save(new_composite(Employee.class, "yarema.fylypchuk@gmail.com").setActive(true));
+        
+        //final Employee employee_base = save(new_composite(Employee.class), "yarema.fylypchuk@gmail.com");
+        
+        final InventoryType laptop = save(new_composite(InventoryType.class, "Laptop").setDesc("All of the laptops"));
+        
+        save(new_composite(Inventory.class, "Inv-01").setEmployee(employee).setInvType(laptop));
 
         LOGGER.info("Completed database creation and population.");
     }
