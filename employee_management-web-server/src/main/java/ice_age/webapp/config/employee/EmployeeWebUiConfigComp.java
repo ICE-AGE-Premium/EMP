@@ -38,6 +38,7 @@ import ua.com.fielden.platform.web.PrefDim.Unit;
 import ice_age.Position.Position;
 import ice_age.common.LayoutComposer;
 import ice_age.common.StandardActions;
+import ice_age.contract.Contract;
 import ua.com.fielden.platform.web.centre.EntityCentre;
 import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
 import static ua.com.fielden.platform.web.centre.api.context.impl.EntityCentreContextSelector.context;
@@ -127,7 +128,7 @@ public class EmployeeWebUiConfigComp {
                 .addCrit(MetaModels.Employee_.name()).asMulti().text().also()
                 .addCrit(MetaModels.Employee_.surname()).asMulti().text().also()
                 .addCrit(MetaModels.Employee_.position()).asMulti().autocompleter(Position.class).also()
-                .addCrit(MetaModels.Employee_.salary()).asMulti().text()
+                .addCrit(MetaModels.Employee_.salary()).asMulti().autocompleter(Contract.class)
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
@@ -162,7 +163,7 @@ public class EmployeeWebUiConfigComp {
                 .addProp(MetaModels.Employee_.name()).asMultilineText().also()
                 .addProp(MetaModels.Employee_.surname()).asMultilineText().also()
                 .addProp(MetaModels.Employee_.position()).asAutocompleter().also()
-                .addProp(MetaModels.Employee_.salary()).asMultilineText().also()
+                .addProp(MetaModels.Employee_.salary()).asAutocompleter().also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), LayoutComposer.mkActionLayoutForMaster())
