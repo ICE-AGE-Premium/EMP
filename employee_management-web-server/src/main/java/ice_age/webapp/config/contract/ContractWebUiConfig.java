@@ -11,6 +11,7 @@ import com.google.inject.Injector;
 import ice_age.common.LayoutComposer;
 import ice_age.common.StandardActions;
 import ice_age.contract.Contract;
+import ice_age.employee.Employee;
 import ice_age.main.menu.contract.MiContract;
 import metamodels.MetaModels;
 import ua.com.fielden.platform.web.PrefDim.Unit;
@@ -72,7 +73,8 @@ public class ContractWebUiConfig {
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
                 .addCrit(MetaModels.Contract_.startdate()).asRange().date().also()
-                .addCrit(MetaModels.Contract_.money()).asRange().decimal()
+                .addCrit(MetaModels.Contract_.money()).asRange().decimal().also()
+                .addCrit(MetaModels.Contract_.employee()).asMulti().autocompleter(Employee.class)
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
@@ -80,6 +82,7 @@ public class ContractWebUiConfig {
                 .addProp(MetaModels.Contract_).order(1).asc().minWidth(100)
                     .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", Contract.ENTITY_TITLE))
                     .withAction(standardEditAction).also()
+                    .addProp(MetaModels.Contract_.employee()).minWidth(100).also()
                     .addProp(MetaModels.Contract_.money()).minWidth(100).also()
                 .addProp(MetaModels.Contract_.startdate()).minWidth(100).also()
                 .addProp(MetaModels.Contract_.enddate()).minWidth(100)
@@ -97,10 +100,11 @@ public class ContractWebUiConfig {
      * @return created entity master
      */
     private EntityMaster<Contract> createMaster(final Injector injector) {
-        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(1, 2, 1, 1);
+        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(2, 2, 1, 1);
 
         final IMaster<Contract> masterConfig = new SimpleMasterBuilder<Contract>().forEntity(Contract.class)
                 .addProp(MetaModels.Contract_.contractid()).asMultilineText().also()
+                .addProp(MetaModels.Contract_.employee()).asAutocompleter().also()
                 .addProp(MetaModels.Contract_.startdate()).asDatePicker().also()
                 .addProp(MetaModels.Contract_.enddate()).asDatePicker().also()
                 .addProp(MetaModels.Contract_.money()).asMoney().also()

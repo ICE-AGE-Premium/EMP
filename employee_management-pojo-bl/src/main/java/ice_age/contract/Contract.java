@@ -4,6 +4,7 @@ import ua.com.fielden.platform.entity.DynamicEntityKey;
 
 import java.util.Date;
 
+import ice_age.employee.Employee;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.KeyTitle;
@@ -32,7 +33,7 @@ import ua.com.fielden.platform.utils.Pair;
  *
  */
 @KeyType(DynamicEntityKey.class)
-@KeyTitle("Id")
+@KeyTitle("Contract ID")
 @CompanionObject(ContractCo.class)
 @MapEntityTo
 @DescTitle("Description")
@@ -49,7 +50,7 @@ public class Contract extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @CompositeKeyMember(1)
-    @Title(value = "Contract_Id", desc = "Contract id")
+    @Title(value = "Contract Id", desc = "Contract id")
     private String contractid;
 
     @Observable
@@ -65,6 +66,7 @@ public class Contract extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @DateOnly
+    @Required
     @Title(value = "Startdate", desc = "Start of contract")
     private Date startdate;
 
@@ -116,6 +118,25 @@ public class Contract extends ActivatableAbstractEntity<DynamicEntityKey> {
         super.setActive(active);
         return this;
     }
+    
+    @IsProperty
+    @MapTo
+    @Required
+    @Title(value = "Employee", desc = "Extended_description")
+    private Employee employee;
+
+    @Observable
+    public Contract setEmployee(final Employee employee) {
+        this.employee = employee;
+        return this;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    
+
 
     
 }

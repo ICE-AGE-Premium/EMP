@@ -16,6 +16,7 @@ import ua.com.fielden.platform.entity.annotation.IsProperty;
 import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
+import ua.com.fielden.platform.entity.annotation.Required;
 import ua.com.fielden.platform.entity.annotation.Title;
 import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
 import ua.com.fielden.platform.entity.annotation.mutator.Handler;
@@ -61,6 +62,7 @@ public class Employee extends ActivatableAbstractEntity<DynamicEntityKey> {
     
     @IsProperty
     @MapTo
+    @Required
     @Title(value = "Name", desc = "Name of the employee")
     private String name;
 
@@ -76,6 +78,7 @@ public class Employee extends ActivatableAbstractEntity<DynamicEntityKey> {
     
     @IsProperty
     @MapTo
+    @Required
     @Title(value = "Surname", desc = "Surname of the employee")
     private String surname;
 
@@ -107,6 +110,7 @@ public class Employee extends ActivatableAbstractEntity<DynamicEntityKey> {
     
     @IsProperty
     @MapTo
+    @Required
     @Title(value = "Position", desc = "Position of the employee")
     private Position position;
 
@@ -122,7 +126,7 @@ public class Employee extends ActivatableAbstractEntity<DynamicEntityKey> {
     
     @IsProperty
     @MapTo
-    @Title(value = "Salary", desc = "Salary of the employee")
+    @Title(value = "Contract", desc = "Contract of the employee")
     private Contract salary;
 
     @Observable

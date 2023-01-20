@@ -11,16 +11,12 @@ import static ua.com.fielden.platform.entity_centre.review.DynamicQueryBuilder.c
 
 import java.util.Optional;
 
-
 import com.google.inject.Injector;
 
 import ice_age.employee.Employee;
-import ice_age.inventory.Inventory;
-import ice_age.inventory.InventoryType;
-import ice_age.main.menu.inventory.MiEmployeeMaster_Inventory;
-import metamodels.MetaModels;
+import ice_age.contract.Contract;
+import ice_age.main.menu.contract.MiEmployeeMaster_Contract;
 import ice_age.employee.master.menu.actions.EmployeeMaster_OpenContract_MenuItem;
-import ice_age.employee.master.menu.actions.EmployeeMaster_OpenInventory_MenuItem;
 import ice_age.employee.ui_actions.OpenEmployeeMasterAction;
 import ice_age.employee.ui_actions.producers.OpenEmployeeMasterActionProducer;
 import ice_age.employee.master.menu.actions.EmployeeMaster_OpenMain_MenuItem;
@@ -36,10 +32,8 @@ import ua.com.fielden.platform.web.view.master.api.IMaster;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
 import ua.com.fielden.platform.web.PrefDim;
 import ua.com.fielden.platform.web.PrefDim.Unit;
-import ice_age.Position.Position;
 import ice_age.common.LayoutComposer;
 import ice_age.common.StandardActions;
-import ice_age.contract.Contract;
 import ua.com.fielden.platform.web.centre.EntityCentre;
 import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
 import static ua.com.fielden.platform.web.centre.api.context.impl.EntityCentreContextSelector.context;
@@ -48,16 +42,16 @@ import ua.com.fielden.platform.web.centre.CentreContext;
 import ua.com.fielden.platform.web.centre.IQueryEnhancer;
 import ua.com.fielden.platform.entity.query.fluent.EntityQueryProgressiveInterfaces.ICompleted;
 import ua.com.fielden.platform.entity.query.fluent.EntityQueryProgressiveInterfaces.IWhere0;
-import ice_age.main.menu.contract.MiEmployeeMaster_Contract;
 import ice_age.main.menu.employee.MiEmployee;
+import metamodels.MetaModels;
 import ua.com.fielden.platform.web.view.master.EntityMaster;
 /**
  * {@link Employee} Web UI configuration.
  *
- * @author Yarema Fylypchuk
+ * @author Developers
  *
  */
-public class EmployeeWebUiConfigComp {
+public class EmployeeWebUiConfigCompound2 {
 
     private final Injector injector;
 
@@ -68,11 +62,11 @@ public class EmployeeWebUiConfigComp {
     public final EntityActionConfig newEmployeeWithMasterAction; // should be used on embedded centres instead of a standrad NEW action
     private final EntityActionConfig newEmployeeAction;
 
-    public static EmployeeWebUiConfigComp register(final Injector injector, final IWebUiBuilder builder) {
-        return new EmployeeWebUiConfigComp(injector, builder);
+    public static EmployeeWebUiConfigCompound2 register(final Injector injector, final IWebUiBuilder builder) {
+        return new EmployeeWebUiConfigCompound2(injector, builder);
     }
 
-    private EmployeeWebUiConfigComp(final Injector injector, final IWebUiBuilder builder) {
+    private EmployeeWebUiConfigCompound2(final Injector injector, final IWebUiBuilder builder) {
         this.injector = injector;
 
         final PrefDim dims = mkDim(960, 640, Unit.PX);
@@ -96,18 +90,12 @@ public class EmployeeWebUiConfigComp {
                 .longDesc(Employee.ENTITY_TITLE + " main")
                 .withView(master)
             .also()
-            .addMenuItem(EmployeeMaster_OpenInventory_MenuItem.class)
-                .icon("icons:view-module")
-                .shortDesc(OpenEmployeeMasterAction.INVENTORYS)
-                .longDesc(Employee.ENTITY_TITLE + " " + OpenEmployeeMasterAction.INVENTORYS)
-                .withView(createInventoryCentre())
-            .also()
             .addMenuItem(EmployeeMaster_OpenContract_MenuItem.class)
-            .icon("icons:view-module")
-            .shortDesc(OpenEmployeeMasterAction.CONTRACTS)
-            .longDesc(Employee.ENTITY_TITLE + " " + OpenEmployeeMasterAction.CONTRACTS)
-            .withView(createContractCentre())
-        .done();
+                .icon("icons:view-module")
+                .shortDesc(OpenEmployeeMasterAction.CONTRACTS)
+                .longDesc(Employee.ENTITY_TITLE + " " + OpenEmployeeMasterAction.CONTRACTS)
+                .withView(createContractCentre())
+            .done();
         builder.register(compoundMaster);
     }
 
@@ -117,12 +105,11 @@ public class EmployeeWebUiConfigComp {
      * @return
      */
     private EntityCentre<Employee> createEmployeeCentre(final IWebUiBuilder builder) {
-        final String layout = LayoutComposer.mkVarGridForCentre(2, 1);
+        final String layout = LayoutComposer.mkGridForCentre(1, 2);
         final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Employee.class);
         final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(Employee.class);
         final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
 
-        final EntityActionConfig standardEditAction = StandardActions.EDIT_ACTION.mkAction(Employee.class);
         final EntityCentreConfig<Employee> ecc = EntityCentreBuilder.centreFor(Employee.class)
                 //.runAutomatically()
                 .addFrontAction(newEmployeeAction)
@@ -130,28 +117,17 @@ public class EmployeeWebUiConfigComp {
                 .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
-                //.addCrit(MetaModels.Employee_).asMulti().autocompleter(Employee.class).also()
-                //.addCrit(MetaModels.Employee_.email()).asMulti().text().also()
-                //.addCrit(MetaModels.Employee_.dob()).asRange().date().also()
-                .addCrit(MetaModels.Employee_.name()).asMulti().text().also()
-                .addCrit(MetaModels.Employee_.surname()).asMulti().text().also()
-                .addCrit(MetaModels.Employee_.position()).asMulti().autocompleter(Position.class)
-                //.addCrit(MetaModels.Employee_.salary()).asMulti().autocompleter(Contract.class)
+                .addCrit("this").asMulti().autocompleter(Employee.class).also()
+                .addCrit("desc").asMulti().text()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
                 .withScrollingConfig(standardStandaloneScrollingConfig(0))
-                .addProp(MetaModels.Employee_.email()).order(1).asc().minWidth(100)
-                .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", Employee.ENTITY_TITLE))
-                .withAction(standardEditAction).also()
-            .addProp(MetaModels.Employee_.dob()).minWidth(100).also()
-            .addProp(MetaModels.Employee_.name()).minWidth(100).also()
-            .addProp(MetaModels.Employee_.surname()).minWidth(100).also()
-            //.addProp(MetaModels.Employee_.salary()).minWidth(100).also()
-            .addProp(MetaModels.Employee_.position()).width(90).also()
-            .addProp(MetaModels.Employee_.active()).minWidth(60)
-            //.addProp("prop").minWidth(100).withActionSupplier(builder.getOpenMasterAction(Entity.class)).also()
-            .addPrimaryAction(editEmployeeAction)
+                .addProp("this").order(1).asc().minWidth(100)
+                    .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", Employee.ENTITY_TITLE))
+                    .withAction(editEmployeeAction).also()
+                .addProp("desc").minWidth(300)
+                .addPrimaryAction(editEmployeeAction)
                 .build();
 
         return new EntityCentre<>(MiEmployee.class, ecc, injector);
@@ -163,15 +139,11 @@ public class EmployeeWebUiConfigComp {
      * @return
      */
     private EntityMaster<Employee> createEmployeeMaster() {
-        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(2, 2, 1);
+        final String layout = LayoutComposer.mkGridForMasterFitWidth(1, 2);
 
         final IMaster<Employee> masterConfig = new SimpleMasterBuilder<Employee>().forEntity(Employee.class)
-                .addProp(MetaModels.Employee_.email()).asSinglelineText().also()
-                .addProp(MetaModels.Employee_.dob()).asDatePicker().also()
-                .addProp(MetaModels.Employee_.name()).asMultilineText().also()
-                .addProp(MetaModels.Employee_.surname()).asMultilineText().also()
-                .addProp(MetaModels.Employee_.position()).asAutocompleter().also()
-                //.addProp(MetaModels.Employee_.salary()).asAutocompleter().also()
+                .addProp("key").asSinglelineText().also()
+                .addProp("desc").asMultilineText().also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), LayoutComposer.mkActionLayoutForMaster())
@@ -183,63 +155,6 @@ public class EmployeeWebUiConfigComp {
         return new EntityMaster<Employee>(Employee.class, masterConfig, injector);
     }
 
-    private EntityCentre<Inventory> createInventoryCentre() {
-        final Class<Inventory> root = Inventory.class;
-        final String layout = LayoutComposer.mkVarGridForCentre(2, 1, 2, 2);
-
-        //TODO If entity Inventory has a compound master then check whether InventoryWebUiConfig has appropriate edit action such as "editInventoryAction" exposed, and if it does, use it.
-        // Alternatively, consider un-commenting and using one of the actions below as appropriate.
-        final EntityActionConfig standardEditAction = StandardActions.EDIT_ACTION.mkAction(Inventory.class);
-        // final EntityActionConfig standardEditAction = Compound.openEdit(OpenInventoryMasterAction.class, Inventory.ENTITY_TITLE, actionEditDesc(Inventory.ENTITY_TITLE), MASTER_DIMS);
-        //TODO If entity Inventory has a compound master then check whether InventoryWebUiConfig has appropriate new action such as "newInventoryWithMasterAction" exposed, and if it does, use it.
-        // Alternatively, consider un-commenting and using one of the actions below as appropriate.
-        final EntityActionConfig standardNewAction = StandardActions.NEW_WITH_MASTER_ACTION.mkAction(Inventory.class);
-        // final EntityActionConfig standardNewAction = Compound.openNewWithMaster(OpenInventoryMasterAction.class, "add-circle-outline", Inventory.ENTITY_TITLE, actionEditDesc(Inventory.ENTITY_TITLE), MASTER_DIMS);
-        final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Inventory.class);
-        final EntityActionConfig standardExportAction = StandardActions.EXPORT_EMBEDDED_CENTRE_ACTION.mkAction(Inventory.class);
-        final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
-
-        //final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Inventory.class);
-        //final EntityActionConfig standardEditAction = StandardActions.EDIT_ACTION.mkAction(Inventory.class);
-        final EntityCentreConfig<Inventory> ecc = EntityCentreBuilder.centreFor(root)
-                .runAutomatically()
-                .addTopAction(standardNewAction).also()
-                .addTopAction(standardDeleteAction).also()
-                .addTopAction(standardSortAction).also()
-                .addTopAction(standardExportAction)
-                .addCrit(MetaModels.Inventory_).asMulti().autocompleter(Inventory.class).also()
-                .addCrit(MetaModels.Inventory_.invType()).asMulti().autocompleter(InventoryType.class).also()
-                .addCrit(MetaModels.Inventory_.employee()).asMulti().autocompleter(Employee.class).also()
-                .addCrit(MetaModels.Inventory_.dop()).asRange().date().also()
-                .addCrit(MetaModels.Inventory_.manufacturer()).asMulti().text().also()
-                .addCrit(MetaModels.Inventory_.model()).asMulti().text().also()
-                .addCrit(MetaModels.Inventory_.comment()).asMulti().text()
-                .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
-                .setLayoutFor(Device.TABLET, Optional.empty(), layout)
-                .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
-                .withScrollingConfig(standardEmbeddedScrollingConfig(0))
-                .addProp(MetaModels.Inventory_).order(1).asc().minWidth(100)
-                .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %sss.", Inventory.ENTITY_TITLE))
-                .withAction(standardEditAction).also()
-            .addProp(MetaModels.Inventory_.employee()).minWidth(100).also()
-            .addProp(MetaModels.Inventory_.invType()).minWidth(100).also()
-            .addProp(MetaModels.Inventory_.manufacturer()).minWidth(100).also()
-            .addProp(MetaModels.Inventory_.model()).width(150).also()
-            .addProp(MetaModels.Inventory_.dop()).width(70).also()
-            .addProp(MetaModels.Inventory_.comment()).minWidth(150)
-            .addPrimaryAction(standardEditAction)
-            .setQueryEnhancer(EmployeeMaster_InventoryCentre_QueryEnhancer.class, context().withMasterEntity().build())
-                .build();
-
-        return new EntityCentre<>(MiEmployeeMaster_Inventory.class, ecc, injector);
-    }
-
-    private static class EmployeeMaster_InventoryCentre_QueryEnhancer implements IQueryEnhancer<Inventory> {
-        @Override
-        public ICompleted<Inventory> enhanceQuery(final IWhere0<Inventory> where, final Optional<CentreContext<Inventory, ?>> context) {
-            return enhanceEmbededCentreQuery(where, createConditionProperty(MetaModels.Inventory_.employee()), context.get().getMasterEntity().getKey());
-        }
-    }
     private EntityCentre<Contract> createContractCentre() {
         final Class<Contract> root = Contract.class;
         final String layout = LayoutComposer.mkVarGridForCentre(2, 1);
@@ -263,8 +178,7 @@ public class EmployeeWebUiConfigComp {
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
                 .addCrit(MetaModels.Contract_.startdate()).asRange().date().also()
-                .addCrit(MetaModels.Contract_.money()).asRange().decimal().also()
-                .addCrit(MetaModels.Contract_.employee()).asMulti().autocompleter(Employee.class)
+                .addCrit(MetaModels.Contract_.money()).asRange().decimal()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
@@ -274,8 +188,7 @@ public class EmployeeWebUiConfigComp {
                 .withAction(standardEditAction).also()
                 .addProp(MetaModels.Contract_.money()).minWidth(100).also()
             .addProp(MetaModels.Contract_.startdate()).minWidth(100).also()
-            .addProp(MetaModels.Contract_.enddate()).minWidth(100).also()
-            .addProp(MetaModels.Contract_.employee()).minWidth(100)
+            .addProp(MetaModels.Contract_.enddate()).minWidth(100)
                 .addPrimaryAction(standardEditAction)
                 .setQueryEnhancer(EmployeeMaster_ContractCentre_QueryEnhancer.class, context().withMasterEntity().build())
                 .build();
@@ -286,7 +199,8 @@ public class EmployeeWebUiConfigComp {
     private static class EmployeeMaster_ContractCentre_QueryEnhancer implements IQueryEnhancer<Contract> {
         @Override
         public ICompleted<Contract> enhanceQuery(final IWhere0<Contract> where, final Optional<CentreContext<Contract, ?>> context) {
-            return enhanceEmbededCentreQuery(where, createConditionProperty(MetaModels.Contract_.employee()), context.get().getMasterEntity().getKey());
-        }}
+            return enhanceEmbededCentreQuery(where, createConditionProperty("employee"), context.get().getMasterEntity().getKey());
+        }
+    }
 
 }

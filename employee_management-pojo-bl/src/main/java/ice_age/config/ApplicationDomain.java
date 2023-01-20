@@ -18,6 +18,7 @@ import ice_age.employee.Employee;
 import ice_age.employee.ui_actions.OpenEmployeeMasterAction;
 import ice_age.employee.master.menu.actions.EmployeeMaster_OpenMain_MenuItem;
 import ice_age.employee.master.menu.actions.EmployeeMaster_OpenInventory_MenuItem;
+import ice_age.employee.master.menu.actions.EmployeeMaster_OpenContract_MenuItem;
 
 /**
  * A class to register domain entities.
@@ -40,6 +41,7 @@ public class ApplicationDomain implements IApplicationDomainProvider {
         add(OpenEmployeeMasterAction.class);
         add(EmployeeMaster_OpenMain_MenuItem.class);
         add(EmployeeMaster_OpenInventory_MenuItem.class);
+        add(EmployeeMaster_OpenContract_MenuItem.class);
     }
 
     private static void add(final Class<? extends AbstractEntity<?>> domainType) {

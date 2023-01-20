@@ -18,7 +18,7 @@ import java.util.stream.Stream;
  */
 public enum Modules {
 
-    USERS_AND_PERSONNEL("Users and Personnel", "A module to manage systems users and company personnel.",
+    USERS_AND_PERSONNEL("General", "A module to manage employees and inventory",
             "mainMenu:help", "#ffeb3b", "#c8b900",
             UsersAndPersonnelModuleToken.class,
             "ice_age.personnel",
