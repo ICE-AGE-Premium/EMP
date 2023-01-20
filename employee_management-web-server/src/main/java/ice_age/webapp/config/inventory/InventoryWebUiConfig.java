@@ -11,7 +11,7 @@ import ice_age.inventory.Inventory;
 import ice_age.inventory.InventoryType;
 import ice_age.common.LayoutComposer;
 import ice_age.common.StandardActions;
-
+import ice_age.employee.Employee;
 import ua.com.fielden.platform.web.interfaces.ILayout.Device;
 import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
 import ua.com.fielden.platform.web.centre.api.EntityCentreConfig;
@@ -75,7 +75,7 @@ public class InventoryWebUiConfig {
                 .addTopAction(standardExportAction)
                 .addCrit(MetaModels.Inventory_).asMulti().autocompleter(Inventory.class).also()
                 .addCrit(MetaModels.Inventory_.invType()).asMulti().autocompleter(InventoryType.class).also()
-                .addCrit(MetaModels.Inventory_.employee()).asMulti().text().also()
+                .addCrit(MetaModels.Inventory_.employee()).asMulti().autocompleter(Employee.class).also()
                 .addCrit(MetaModels.Inventory_.dop()).asRange().date().also()
                 .addCrit(MetaModels.Inventory_.manufacturer()).asMulti().text().also()
                 .addCrit(MetaModels.Inventory_.model()).asMulti().text().also()
@@ -111,7 +111,7 @@ public class InventoryWebUiConfig {
         final IMaster<Inventory> masterConfig = new SimpleMasterBuilder<Inventory>().forEntity(Inventory.class)
                 // row 1
                 .addProp(MetaModels.Inventory_.invNumber()).asSinglelineText().also()
-                .addProp(MetaModels.Inventory_.employee()).asSinglelineText().also()
+                .addProp(MetaModels.Inventory_.employee()).asAutocompleter().also()
                 // row 2
                 .addProp(MetaModels.Inventory_.invType()).asAutocompleter().also()
                 .addProp(MetaModels.Inventory_.dop()).asDatePicker().also()

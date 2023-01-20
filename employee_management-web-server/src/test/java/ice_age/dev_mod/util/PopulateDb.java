@@ -85,13 +85,13 @@ public class PopulateDb extends DomainDrivenDataPopulation implements IDomainDat
         setupUser(User.system_users.SU, "iceage");
         setupPerson(User.system_users.SU, "iceage");
         
-        save(new_composite(Employee.class, "yarema.fylypchuk@gmail.com"));
+        final Employee employee = save(new_composite(Employee.class, "yarema.fylypchuk@gmail.com").setActive(true));
         
         //final Employee employee_base = save(new_composite(Employee.class), "yarema.fylypchuk@gmail.com");
         
         final InventoryType laptop = save(new_composite(InventoryType.class, "Laptop").setDesc("All of the laptops"));
         
-        save(new_composite(Inventory.class, "Inv-01").setEmployee("Yarema Fylypchuk").setInvType(laptop));
+        save(new_composite(Inventory.class, "Inv-01").setEmployee(employee).setInvType(laptop));
 
         LOGGER.info("Completed database creation and population.");
     }

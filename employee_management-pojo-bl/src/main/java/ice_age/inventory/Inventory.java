@@ -4,6 +4,7 @@ import ua.com.fielden.platform.entity.DynamicEntityKey;
 
 import java.util.Date;
 
+import ice_age.employee.Employee;
 import ua.com.fielden.platform.entity.AbstractPersistentEntity;
 import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.KeyTitle;
@@ -34,6 +35,7 @@ public class Inventory extends AbstractPersistentEntity<DynamicEntityKey> {
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Inventory.class);
     public static final String ENTITY_TITLE = entityTitleAndDesc.getKey();
     public static final String ENTITY_DESC = entityTitleAndDesc.getValue();
+    public static final int KEY_LENGTH = 6;
     
     @IsProperty
     @MapTo
@@ -55,15 +57,15 @@ public class Inventory extends AbstractPersistentEntity<DynamicEntityKey> {
     @MapTo
     @Required
     @Title(value = "Employee", desc = "Employee to whom inventory belongs")
-    private String employee;
+    private Employee employee;
 
     @Observable
-    public Inventory setEmployee(final String employee) {
+    public Inventory setEmployee(final Employee employee) {
         this.employee = employee;
         return this;
     }
     
-    public String getEmployee() {
+    public Employee getEmployee() {
         return employee;
     }
     
