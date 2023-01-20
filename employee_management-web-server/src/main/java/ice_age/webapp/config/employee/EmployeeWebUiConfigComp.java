@@ -117,7 +117,7 @@ public class EmployeeWebUiConfigComp {
      * @return
      */
     private EntityCentre<Employee> createEmployeeCentre(final IWebUiBuilder builder) {
-        final String layout = LayoutComposer.mkVarGridForCentre(2, 2, 2);
+        final String layout = LayoutComposer.mkVarGridForCentre(2, 1);
         final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Employee.class);
         final EntityActionConfig standardExportAction = StandardActions.EXPORT_ACTION.mkAction(Employee.class);
         final EntityActionConfig standardSortAction = CentreConfigActions.CUSTOMISE_COLUMNS_ACTION.mkAction();
@@ -131,12 +131,12 @@ public class EmployeeWebUiConfigComp {
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
                 //.addCrit(MetaModels.Employee_).asMulti().autocompleter(Employee.class).also()
-                .addCrit(MetaModels.Employee_.email()).asMulti().text().also()
-                .addCrit(MetaModels.Employee_.dob()).asRange().date().also()
+                //.addCrit(MetaModels.Employee_.email()).asMulti().text().also()
+                //.addCrit(MetaModels.Employee_.dob()).asRange().date().also()
                 .addCrit(MetaModels.Employee_.name()).asMulti().text().also()
                 .addCrit(MetaModels.Employee_.surname()).asMulti().text().also()
-                .addCrit(MetaModels.Employee_.position()).asMulti().autocompleter(Position.class).also()
-                .addCrit(MetaModels.Employee_.salary()).asMulti().autocompleter(Contract.class)
+                .addCrit(MetaModels.Employee_.position()).asMulti().autocompleter(Position.class)
+                //.addCrit(MetaModels.Employee_.salary()).asMulti().autocompleter(Contract.class)
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
@@ -147,7 +147,7 @@ public class EmployeeWebUiConfigComp {
             .addProp(MetaModels.Employee_.dob()).minWidth(100).also()
             .addProp(MetaModels.Employee_.name()).minWidth(100).also()
             .addProp(MetaModels.Employee_.surname()).minWidth(100).also()
-            .addProp(MetaModels.Employee_.salary()).minWidth(100).also()
+            //.addProp(MetaModels.Employee_.salary()).minWidth(100).also()
             .addProp(MetaModels.Employee_.position()).width(90).also()
             .addProp(MetaModels.Employee_.active()).minWidth(60)
             //.addProp("prop").minWidth(100).withActionSupplier(builder.getOpenMasterAction(Entity.class)).also()
@@ -163,7 +163,7 @@ public class EmployeeWebUiConfigComp {
      * @return
      */
     private EntityMaster<Employee> createEmployeeMaster() {
-        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(2, 2, 2);
+        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(2, 2, 1);
 
         final IMaster<Employee> masterConfig = new SimpleMasterBuilder<Employee>().forEntity(Employee.class)
                 .addProp(MetaModels.Employee_.email()).asSinglelineText().also()
@@ -171,7 +171,7 @@ public class EmployeeWebUiConfigComp {
                 .addProp(MetaModels.Employee_.name()).asMultilineText().also()
                 .addProp(MetaModels.Employee_.surname()).asMultilineText().also()
                 .addProp(MetaModels.Employee_.position()).asAutocompleter().also()
-                .addProp(MetaModels.Employee_.salary()).asAutocompleter().also()
+                //.addProp(MetaModels.Employee_.salary()).asAutocompleter().also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), LayoutComposer.mkActionLayoutForMaster())

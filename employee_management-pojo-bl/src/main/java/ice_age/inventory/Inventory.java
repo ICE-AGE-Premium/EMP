@@ -39,7 +39,7 @@ public class Inventory extends AbstractPersistentEntity<DynamicEntityKey> {
     
     @IsProperty
     @MapTo
-    @Title(value = "InvNumber", desc = "Inventory number that should be unique")
+    @Title(value = "Inventory number", desc = "Inventory number that should be unique")
     @CompositeKeyMember(1)
     private String invNumber;
 

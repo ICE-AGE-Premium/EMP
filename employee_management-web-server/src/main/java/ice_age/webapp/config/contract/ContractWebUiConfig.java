@@ -11,6 +11,7 @@ import com.google.inject.Injector;
 import ice_age.common.LayoutComposer;
 import ice_age.common.StandardActions;
 import ice_age.contract.Contract;
+import ice_age.employee.Employee;
 import ice_age.main.menu.contract.MiContract;
 import metamodels.MetaModels;
 import ua.com.fielden.platform.web.PrefDim.Unit;
@@ -72,7 +73,8 @@ public class ContractWebUiConfig {
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
                 .addCrit(MetaModels.Contract_.startdate()).asRange().date().also()
-                .addCrit(MetaModels.Contract_.money()).asRange().decimal()
+                .addCrit(MetaModels.Contract_.money()).asRange().decimal().also()
+                .addCrit(MetaModels.Contract_.employee()).asMulti().autocompleter(Employee.class)
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
@@ -80,6 +82,7 @@ public class ContractWebUiConfig {
                 .addProp(MetaModels.Contract_).order(1).asc().minWidth(100)
                     .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", Contract.ENTITY_TITLE))
                     .withAction(standardEditAction).also()
+                    .addProp(MetaModels.Contract_.employee()).minWidth(100).also()
                     .addProp(MetaModels.Contract_.money()).minWidth(100).also()
                 .addProp(MetaModels.Contract_.startdate()).minWidth(100).also()
                 .addProp(MetaModels.Contract_.enddate()).minWidth(100)

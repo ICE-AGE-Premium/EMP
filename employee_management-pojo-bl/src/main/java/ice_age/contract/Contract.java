@@ -33,7 +33,7 @@ import ua.com.fielden.platform.utils.Pair;
  *
  */
 @KeyType(DynamicEntityKey.class)
-@KeyTitle("Id")
+@KeyTitle("Contract ID")
 @CompanionObject(ContractCo.class)
 @MapEntityTo
 @DescTitle("Description")
@@ -50,7 +50,7 @@ public class Contract extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @CompositeKeyMember(1)
-    @Title(value = "Contract_Id", desc = "Contract id")
+    @Title(value = "Contract Id", desc = "Contract id")
     private String contractid;
 
     @Observable
@@ -66,6 +66,7 @@ public class Contract extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @DateOnly
+    @Required
     @Title(value = "Startdate", desc = "Start of contract")
     private Date startdate;
 
@@ -120,6 +121,7 @@ public class Contract extends ActivatableAbstractEntity<DynamicEntityKey> {
     
     @IsProperty
     @MapTo
+    @Required
     @Title(value = "Employee", desc = "Extended_description")
     private Employee employee;
 

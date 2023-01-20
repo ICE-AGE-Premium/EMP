@@ -26,7 +26,7 @@ import ua.com.fielden.platform.utils.Pair;
  *
  */
 @KeyType(DynamicEntityKey.class)
-@KeyTitle("PosName")
+@KeyTitle("Name")
 @CompanionObject(PositionCo.class)
 @MapEntityTo
 @DescTitle("Description")
