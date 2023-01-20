@@ -12,6 +12,12 @@ import ua.com.fielden.platform.domain.PlatformDomainTypes;
 import ua.com.fielden.platform.entity.AbstractEntity;
 import ice_age.Position.Position;
 import ice_age.contract.Contract;
+import ice_age.inventory.Inventory;
+import ice_age.inventory.InventoryType;
+import ice_age.employee.Employee;
+import ice_age.employee.ui_actions.OpenEmployeeMasterAction;
+import ice_age.employee.master.menu.actions.EmployeeMaster_OpenMain_MenuItem;
+import ice_age.employee.master.menu.actions.EmployeeMaster_OpenInventory_MenuItem;
 
 /**
  * A class to register domain entities.
@@ -28,6 +34,12 @@ public class ApplicationDomain implements IApplicationDomainProvider {
         add(Person.class);
         add(Position.class);
         add(Contract.class);
+        add(Inventory.class);
+        add(InventoryType.class);
+        add(Employee.class);
+        add(OpenEmployeeMasterAction.class);
+        add(EmployeeMaster_OpenMain_MenuItem.class);
+        add(EmployeeMaster_OpenInventory_MenuItem.class);
     }
 
     private static void add(final Class<? extends AbstractEntity<?>> domainType) {

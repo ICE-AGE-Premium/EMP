@@ -7,10 +7,19 @@ import org.apache.commons.lang3.StringUtils;
 import ice_age.Position.Position;
 import ice_age.config.Modules;
 import ice_age.config.personnel.PersonWebUiConfig;
+
 import ice_age.contract.Contract;
+import ice_age.webapp.config.contract.ContractWebUiConfig;
+import ice_age.employee.Employee;
+import ice_age.inventory.Inventory;
 import ice_age.personnel.Person;
 import ice_age.webapp.config.Position.PositionWebUiConfig;
-import ice_age.webapp.config.contract.ContractWebUiConfig;
+import ice_age.webapp.config.inventory.InventoryWebUiConfig;
+import ice_age.inventory.InventoryType;
+import ice_age.personnel.Person;
+import ice_age.webapp.config.employee.EmployeeWebUiConfig;
+import ice_age.webapp.config.employee.EmployeeWebUiConfigComp;
+import ice_age.webapp.config.inventory.InventoryTypeWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
 import ua.com.fielden.platform.entity.AbstractEntity;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
@@ -39,7 +48,7 @@ public class WebUiConfig extends AbstractWebUiConfig {
     private final int port;
 
     public WebUiConfig(final String domainName, final int port, final Workflows workflow, final String path) {
-        super("Employee management.", workflow, new String[] { "ice_age/" });
+        super("Employee management system", workflow, new String[] { "ice_age/" });
         if (StringUtils.isEmpty(domainName) || StringUtils.isEmpty(path)) {
             throw new IllegalArgumentException("Both the domain name and application binding path should be specified.");
         }
@@ -75,9 +84,13 @@ public class WebUiConfig extends AbstractWebUiConfig {
         .setMinTabletWidth(600);
 
         // Users and Personnel Module
-        final PersonWebUiConfig personWebUiConfig = PersonWebUiConfig.register(injector(), builder);
+        //final PersonWebUiConfig personWebUiConfig = PersonWebUiConfig.register(injector(), builder);
         final PositionWebUiConfig positionWebUiConfig = PositionWebUiConfig.register(injector(), builder);
         final ContractWebUiConfig contractWebUiConfig = ContractWebUiConfig.register(injector(), builder);
+        //final PersonWebUiConfig personWebUiConfig = PersonWebUiConfig.register(injector(), builder);
+        final EmployeeWebUiConfigComp employeeWebUiConfigComp = EmployeeWebUiConfigComp.register(injector(), builder);
+        final InventoryWebUiConfig inventoryWebUiConfig = InventoryWebUiConfig.register(injector(), builder);
+        final InventoryTypeWebUiConfig inventoryTypeWebUiConfig = InventoryTypeWebUiConfig.register(injector(), builder);
         final UserWebUiConfig userWebUiConfig = UserWebUiConfig.register(injector(), builder);
         final UserRoleWebUiConfig userRoleWebUiConfig = UserRoleWebUiConfig.register(injector(), builder);
         final SecurityMatrixWebUiConfig securityConfig = SecurityMatrixWebUiConfig.register(injector(), configApp());
@@ -100,9 +113,12 @@ public class WebUiConfig extends AbstractWebUiConfig {
             .bgColor(Modules.USERS_AND_PERSONNEL.bgColour)
             .captionBgColor(Modules.USERS_AND_PERSONNEL.captionBgColour)
             .menu()
-                .addMenuItem(mkMenuItemTitle(Person.class)).description(mkMenuItemDesc(Person.class)).centre(personWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Position.class)).description(mkMenuItemDesc(Position.class)).centre(positionWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Contract.class)).description(mkMenuItemDesc(Contract.class)).centre(contractWebUiConfig.centre).done()
+                //.addMenuItem(mkMenuItemTitle(Person.class)).description(mkMenuItemDesc(Person.class)).centre(personWebUiConfig.centre).done()
+                .addMenuItem(mkMenuItemTitle(Employee.class)).description(mkMenuItemDesc(Employee.class)).centre(employeeWebUiConfigComp.centre).done()
+                .addMenuItem(mkMenuItemTitle(Inventory.class)).description(mkMenuItemDesc(Inventory.class)).centre(inventoryWebUiConfig.centre).done()
+                .addMenuItem(mkMenuItemTitle(InventoryType.class)).description(mkMenuItemDesc(InventoryType.class)).centre(inventoryTypeWebUiConfig.centre).done()
                 .addMenuItem("System Users").description("Functionality for managing system users, authorisation, etc.")
                     .addMenuItem("Users").description("User centre").centre(userWebUiConfig.centre).done()
                     .addMenuItem("User Roles").description("User roles centre").centre(userRoleWebUiConfig.centre).done()
