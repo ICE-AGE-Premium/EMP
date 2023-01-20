@@ -9,6 +9,7 @@ import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.KeyTitle;
 import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
+import ua.com.fielden.platform.entity.annotation.DateOnly;
 import ua.com.fielden.platform.entity.annotation.IsProperty;
 import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
@@ -17,6 +18,7 @@ import ua.com.fielden.platform.entity.annotation.Title;
 import ua.com.fielden.platform.entity.annotation.mutator.BeforeChange;
 import ua.com.fielden.platform.entity.annotation.mutator.Handler;
 import ua.com.fielden.platform.entity.validation.MaxLengthValidator;
+import ua.com.fielden.platform.property.validator.EmailValidator;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.utils.Pair;
 
@@ -30,8 +32,7 @@ import ua.com.fielden.platform.utils.Pair;
 @KeyTitle("Employee")
 @CompanionObject(EmployeeCo.class)
 @MapEntityTo
-// TODO: May need this later if some entities need to be automatically cascade-deactivated when this entity is deactivated
-// @DeactivatableDependencies({ Dependency1.class, Dependency2.class, Dependency3.class })
+
 public class Employee extends ActivatableAbstractEntity<DynamicEntityKey> {
 
     private static final Pair<String, String> entityTitleAndDesc = TitlesDescsGetter.getEntityTitleAndDesc(Employee.class);
@@ -42,7 +43,7 @@ public class Employee extends ActivatableAbstractEntity<DynamicEntityKey> {
     @MapTo
     @Title(value = "Email", desc = "Email of the employee")
     @CompositeKeyMember(1)
-    @BeforeChange(@Handler(MaxLengthValidator.class))
+    @BeforeChange({@Handler(MaxLengthValidator.class), @Handler(EmailValidator.class)})
     private String email;
 
     @Observable
@@ -88,6 +89,7 @@ public class Employee extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @Title(value = "Date of birth", desc = "Date of birth of the employee")
+    @DateOnly
     private Date dob;
 
     @Observable
@@ -128,6 +130,13 @@ public class Employee extends ActivatableAbstractEntity<DynamicEntityKey> {
 
     public String getSalary() {
         return salary;
+    }
+    
+    @Override
+    @Observable
+    public Employee setActive(final boolean active) {
+        super.setActive(active);
+        return this;
     }
 
     

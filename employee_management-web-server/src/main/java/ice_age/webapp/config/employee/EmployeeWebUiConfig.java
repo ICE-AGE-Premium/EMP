@@ -90,7 +90,8 @@ public class EmployeeWebUiConfig {
                 .addProp(MetaModels.Employee_.name()).minWidth(100).also()
                 .addProp(MetaModels.Employee_.surname()).minWidth(100).also()
                 .addProp(MetaModels.Employee_.salary()).minWidth(100).also()
-                .addProp(MetaModels.Employee_.position()).width(90)
+                .addProp(MetaModels.Employee_.position()).width(90).also()
+                .addProp(MetaModels.Employee_.active()).minWidth(60)
                 //.addProp("prop").minWidth(100).withActionSupplier(builder.getOpenMasterAction(Entity.class)).also()
                 .addPrimaryAction(standardEditAction)
                 .build();

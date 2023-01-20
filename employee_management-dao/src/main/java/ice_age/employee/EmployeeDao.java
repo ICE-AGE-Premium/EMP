@@ -22,6 +22,11 @@ import ua.com.fielden.platform.entity.annotation.EntityType;
  */
 @EntityType(Employee.class)
 public class EmployeeDao extends CommonEntityDao<Employee> implements EmployeeCo {
+    
+    @Override
+    public Employee new_() {
+        return super.new_().setActive(true);
+    }
 
     @Inject
     public EmployeeDao(final IFilter filter) {
