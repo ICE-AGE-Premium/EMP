@@ -6,11 +6,13 @@ import org.apache.commons.lang3.StringUtils;
 
 import ice_age.config.Modules;
 import ice_age.config.personnel.PersonWebUiConfig;
+import ice_age.employee.Employee;
 import ice_age.inventory.Inventory;
 import ice_age.personnel.Person;
 import ice_age.webapp.config.inventory.InventoryWebUiConfig;
 import ice_age.inventory.InventoryType;
 import ice_age.personnel.Person;
+import ice_age.webapp.config.employee.EmployeeWebUiConfig;
 import ice_age.webapp.config.inventory.InventoryTypeWebUiConfig;
 import ua.com.fielden.platform.basic.config.Workflows;
 import ua.com.fielden.platform.utils.Pair;
@@ -78,7 +80,8 @@ public class WebUiConfig extends AbstractWebUiConfig {
         .setMinTabletWidth(600);
 
         // Users and Personnel Module
-        final PersonWebUiConfig personWebUiConfig = PersonWebUiConfig.register(injector(), builder);
+        //final PersonWebUiConfig personWebUiConfig = PersonWebUiConfig.register(injector(), builder);
+        final EmployeeWebUiConfig employeeWebUiConfig = EmployeeWebUiConfig.register(injector(), builder);
         final InventoryWebUiConfig inventoryWebUiConfig = InventoryWebUiConfig.register(injector(), builder);
         final InventoryTypeWebUiConfig inventoryTypeWebUiConfig = InventoryTypeWebUiConfig.register(injector(), builder);
         final UserWebUiConfig userWebUiConfig = UserWebUiConfig.register(injector(), builder);
@@ -103,7 +106,8 @@ public class WebUiConfig extends AbstractWebUiConfig {
             .bgColor(Modules.USERS_AND_PERSONNEL.bgColour)
             .captionBgColor(Modules.USERS_AND_PERSONNEL.captionBgColour)
             .menu()
-                .addMenuItem(mkMenuItemTitle(Person.class)).description(mkMenuItemDesc(Person.class)).centre(personWebUiConfig.centre).done()
+                //.addMenuItem(mkMenuItemTitle(Person.class)).description(mkMenuItemDesc(Person.class)).centre(personWebUiConfig.centre).done()
+                .addMenuItem(mkMenuItemTitle(Employee.class)).description(mkMenuItemDesc(Employee.class)).centre(employeeWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(Inventory.class)).description(mkMenuItemDesc(Inventory.class)).centre(inventoryWebUiConfig.centre).done()
                 .addMenuItem(mkMenuItemTitle(InventoryType.class)).description(mkMenuItemDesc(InventoryType.class)).centre(inventoryTypeWebUiConfig.centre).done()
                 .addMenuItem("System Users").description("Functionality for managing system users, authorisation, etc.")

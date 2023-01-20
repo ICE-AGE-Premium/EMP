@@ -16,6 +16,7 @@ import org.apache.logging.log4j.Logger;
 
 import ice_age.config.ApplicationDomain;
 import ice_age.data.IDomainData;
+import ice_age.employee.Employee;
 import ice_age.inventory.Inventory;
 import ice_age.inventory.InventoryType;
 import ice_age.utils.PostgresqlDbUtils;
@@ -83,6 +84,10 @@ public class PopulateDb extends DomainDrivenDataPopulation implements IDomainDat
 
         setupUser(User.system_users.SU, "iceage");
         setupPerson(User.system_users.SU, "iceage");
+        
+        save(new_composite(Employee.class, "yarema.fylypchuk@gmail.com"));
+        
+        //final Employee employee_base = save(new_composite(Employee.class), "yarema.fylypchuk@gmail.com");
         
         final InventoryType laptop = save(new_composite(InventoryType.class, "Laptop").setDesc("All of the laptops"));
         
