@@ -1,5 +1,6 @@
 package ice_age.employee.ui_actions;
 
+import ice_age.contract.Contract;
 import ice_age.employee.Employee;
 import ice_age.inventory.Inventory;
 import ua.com.fielden.platform.entity.AbstractFunctionalEntityToOpenCompoundMaster;
@@ -26,4 +27,5 @@ public class OpenEmployeeMasterAction extends AbstractFunctionalEntityToOpenComp
 
     public static final String MAIN = "Main";
     public static final String INVENTORYS = Inventory.ENTITY_TITLE; // Please adjust manually if the plural form is not standard
+    public static final String CONTRACTS = Contract.ENTITY_TITLE;
 }

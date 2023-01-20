@@ -97,10 +97,11 @@ public class ContractWebUiConfig {
      * @return created entity master
      */
     private EntityMaster<Contract> createMaster(final Injector injector) {
-        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(1, 2, 1, 1);
+        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(2, 2, 1, 1);
 
         final IMaster<Contract> masterConfig = new SimpleMasterBuilder<Contract>().forEntity(Contract.class)
                 .addProp(MetaModels.Contract_.contractid()).asMultilineText().also()
+                .addProp(MetaModels.Contract_.employee()).asAutocompleter().also()
                 .addProp(MetaModels.Contract_.startdate()).asDatePicker().also()
                 .addProp(MetaModels.Contract_.enddate()).asDatePicker().also()
                 .addProp(MetaModels.Contract_.money()).asMoney().also()

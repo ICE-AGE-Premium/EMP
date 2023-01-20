@@ -4,6 +4,7 @@ import ua.com.fielden.platform.entity.DynamicEntityKey;
 
 import java.util.Date;
 
+import ice_age.employee.Employee;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.KeyTitle;
@@ -116,6 +117,24 @@ public class Contract extends ActivatableAbstractEntity<DynamicEntityKey> {
         super.setActive(active);
         return this;
     }
+    
+    @IsProperty
+    @MapTo
+    @Title(value = "Employee", desc = "Extended_description")
+    private Employee employee;
+
+    @Observable
+    public Contract setEmployee(final Employee employee) {
+        this.employee = employee;
+        return this;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    
+
 
     
 }
