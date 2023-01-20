@@ -1,34 +1,30 @@
 package ice_age.webapp.config.contract;
 
-import ua.com.fielden.platform.types.Money;
-import static java.lang.String.format;
 import static ice_age.common.StandardScrollingConfigs.standardStandaloneScrollingConfig;
+import static java.lang.String.format;
+import static ua.com.fielden.platform.web.PrefDim.mkDim;
 
 import java.util.Optional;
 
 import com.google.inject.Injector;
 
-import ice_age.contract.Contract;
 import ice_age.common.LayoutComposer;
 import ice_age.common.StandardActions;
-
-import ua.com.fielden.platform.web.interfaces.ILayout.Device;
+import ice_age.contract.Contract;
+import ice_age.main.menu.contract.MiContract;
+import metamodels.MetaModels;
+import ua.com.fielden.platform.web.PrefDim.Unit;
 import ua.com.fielden.platform.web.action.CentreConfigurationWebUiConfig.CentreConfigActions;
+import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
+import ua.com.fielden.platform.web.centre.EntityCentre;
 import ua.com.fielden.platform.web.centre.api.EntityCentreConfig;
 import ua.com.fielden.platform.web.centre.api.actions.EntityActionConfig;
 import ua.com.fielden.platform.web.centre.api.impl.EntityCentreBuilder;
+import ua.com.fielden.platform.web.interfaces.ILayout.Device;
+import ua.com.fielden.platform.web.view.master.EntityMaster;
+import ua.com.fielden.platform.web.view.master.api.IMaster;
 import ua.com.fielden.platform.web.view.master.api.actions.MasterActions;
 import ua.com.fielden.platform.web.view.master.api.impl.SimpleMasterBuilder;
-import ua.com.fielden.platform.web.view.master.api.IMaster;
-import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
-import ice_age.main.menu.contract.MiContract;
-import metamodels.MetaModels;
-import ua.com.fielden.platform.web.centre.EntityCentre;
-import ua.com.fielden.platform.web.view.master.EntityMaster;
-import static ua.com.fielden.platform.web.PrefDim.mkDim;
-
-import ua.com.fielden.platform.types.Money;
-import ua.com.fielden.platform.web.PrefDim.Unit;
 
 /**
  * {@link Contract} Web UI configuration.
