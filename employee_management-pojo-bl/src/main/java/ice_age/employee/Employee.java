@@ -4,6 +4,7 @@ import ua.com.fielden.platform.entity.DynamicEntityKey;
 
 import java.util.Date;
 
+import ice_age.Position.Position;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.KeyTitle;
@@ -105,15 +106,15 @@ public class Employee extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @Title(value = "Position", desc = "Position of the employee")
-    private String position;
+    private Position position;
 
     @Observable
-    public Employee setPosition(final String position) {
+    public Employee setPosition(final Position position) {
         this.position = position;
         return this;
     }
 
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
     

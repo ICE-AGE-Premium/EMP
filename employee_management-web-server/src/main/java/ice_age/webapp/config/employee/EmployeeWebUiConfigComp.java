@@ -11,6 +11,7 @@ import static ua.com.fielden.platform.entity_centre.review.DynamicQueryBuilder.c
 
 import java.util.Optional;
 
+
 import com.google.inject.Injector;
 
 import ice_age.employee.Employee;
@@ -34,6 +35,7 @@ import ua.com.fielden.platform.web.view.master.api.IMaster;
 import ua.com.fielden.platform.web.app.config.IWebUiBuilder;
 import ua.com.fielden.platform.web.PrefDim;
 import ua.com.fielden.platform.web.PrefDim.Unit;
+import ice_age.Position.Position;
 import ice_age.common.LayoutComposer;
 import ice_age.common.StandardActions;
 import ua.com.fielden.platform.web.centre.EntityCentre;
@@ -49,7 +51,7 @@ import ua.com.fielden.platform.web.view.master.EntityMaster;
 /**
  * {@link Employee} Web UI configuration.
  *
- * @author Developers
+ * @author Yarema Fylypchuk
  *
  */
 public class EmployeeWebUiConfigComp {
@@ -124,7 +126,7 @@ public class EmployeeWebUiConfigComp {
                 .addCrit(MetaModels.Employee_.dob()).asRange().date().also()
                 .addCrit(MetaModels.Employee_.name()).asMulti().text().also()
                 .addCrit(MetaModels.Employee_.surname()).asMulti().text().also()
-                .addCrit(MetaModels.Employee_.position()).asMulti().text().also()
+                .addCrit(MetaModels.Employee_.position()).asMulti().autocompleter(Position.class).also()
                 .addCrit(MetaModels.Employee_.salary()).asMulti().text()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
@@ -159,7 +161,7 @@ public class EmployeeWebUiConfigComp {
                 .addProp(MetaModels.Employee_.dob()).asDatePicker().also()
                 .addProp(MetaModels.Employee_.name()).asMultilineText().also()
                 .addProp(MetaModels.Employee_.surname()).asMultilineText().also()
-                .addProp(MetaModels.Employee_.position()).asMultilineText().also()
+                .addProp(MetaModels.Employee_.position()).asAutocompleter().also()
                 .addProp(MetaModels.Employee_.salary()).asMultilineText().also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)

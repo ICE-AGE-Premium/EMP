@@ -22,6 +22,11 @@ import ua.com.fielden.platform.entity.annotation.EntityType;
  */
 @EntityType(Position.class)
 public class PositionDao extends CommonEntityDao<Position> implements PositionCo {
+    
+    @Override
+        public Position new_() {
+            return super.new_().setActive(true);
+        }
 
     @Inject
     public PositionDao(final IFilter filter) {
