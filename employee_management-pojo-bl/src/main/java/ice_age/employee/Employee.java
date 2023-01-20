@@ -4,6 +4,8 @@ import ua.com.fielden.platform.entity.DynamicEntityKey;
 
 import java.util.Date;
 
+import ice_age.Position.Position;
+import ice_age.contract.Contract;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.KeyTitle;
@@ -20,12 +22,13 @@ import ua.com.fielden.platform.entity.annotation.mutator.Handler;
 import ua.com.fielden.platform.entity.validation.MaxLengthValidator;
 import ua.com.fielden.platform.property.validator.EmailValidator;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
+import ua.com.fielden.platform.types.Money;
 import ua.com.fielden.platform.utils.Pair;
 
 /**
  * Master entity object.
  *
- * @author Developers
+ * @author Yarema Fylypchuk
  *
  */
 @KeyType(DynamicEntityKey.class)
@@ -105,30 +108,30 @@ public class Employee extends ActivatableAbstractEntity<DynamicEntityKey> {
     @IsProperty
     @MapTo
     @Title(value = "Position", desc = "Position of the employee")
-    private String position;
+    private Position position;
 
     @Observable
-    public Employee setPosition(final String position) {
+    public Employee setPosition(final Position position) {
         this.position = position;
         return this;
     }
 
-    public String getPosition() {
+    public Position getPosition() {
         return position;
     }
     
     @IsProperty
     @MapTo
     @Title(value = "Salary", desc = "Salary of the employee")
-    private String salary;
+    private Contract salary;
 
     @Observable
-    public Employee setSalary(final String salary) {
+    public Employee setSalary(final Contract salary) {
         this.salary = salary;
         return this;
     }
 
-    public String getSalary() {
+    public Contract getSalary() {
         return salary;
     }
     

@@ -1,6 +1,7 @@
 package ice_age.Position;
 
 import ua.com.fielden.platform.entity.DynamicEntityKey;
+import ice_age.employee.Employee;
 import ua.com.fielden.platform.entity.ActivatableAbstractEntity;
 import ua.com.fielden.platform.entity.annotation.KeyType;
 import ua.com.fielden.platform.entity.annotation.KeyTitle;
@@ -54,6 +55,13 @@ public class Position extends ActivatableAbstractEntity<DynamicEntityKey> {
 
     public String getPosname() {
         return posname;
+    }
+    
+    @Override
+    @Observable
+    public Position setActive(final boolean active) {
+        super.setActive(active);
+        return this;
     }
 
 }
