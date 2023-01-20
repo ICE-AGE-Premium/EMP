@@ -10,6 +10,7 @@ import ice_age.personnel.Person;
 import ua.com.fielden.platform.basic.config.IApplicationDomainProvider;
 import ua.com.fielden.platform.domain.PlatformDomainTypes;
 import ua.com.fielden.platform.entity.AbstractEntity;
+import ice_age.Position.Position;
 import ice_age.inventory.Inventory;
 import ice_age.inventory.InventoryType;
 import ice_age.employee.Employee;
@@ -30,6 +31,7 @@ public class ApplicationDomain implements IApplicationDomainProvider {
     static {
         entityTypes.addAll(PlatformDomainTypes.types);
         add(Person.class);
+        add(Position.class);
         add(Inventory.class);
         add(InventoryType.class);
         add(Employee.class);
