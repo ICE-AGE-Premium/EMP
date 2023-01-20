@@ -55,7 +55,7 @@ public class ContractWebUiConfig {
      * @return created entity centre
      */
     private EntityCentre<Contract> createCentre(final Injector injector, final IWebUiBuilder builder) {
-        final String layout = LayoutComposer.mkGridForCentre(1, 2);
+        final String layout = LayoutComposer.mkGridForCentre(2, 1);
 
         final EntityActionConfig standardNewAction = StandardActions.NEW_ACTION.mkAction(Contract.class);
         final EntityActionConfig standardDeleteAction = StandardActions.DELETE_ACTION.mkAction(Contract.class);
@@ -71,16 +71,18 @@ public class ContractWebUiConfig {
                 .addTopAction(standardDeleteAction).also()
                 .addTopAction(standardSortAction).also()
                 .addTopAction(standardExportAction)
-                .addCrit(MetaModels.Contract_).asMulti().autocompleter(Contract.class).also()
+                .addCrit(MetaModels.Contract_.startdate()).asRange().date().also()
                 .addCrit(MetaModels.Contract_.money()).asRange().decimal()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
                 .withScrollingConfig(standardStandaloneScrollingConfig(0))
-                .addProp(MetaModels.Contract_.time()).order(1).asc().minWidth(100)
+                .addProp(MetaModels.Contract_).order(1).asc().minWidth(100)
                     .withSummary("total_count_", "COUNT(SELF)", format("Count:The total number of matching %ss.", Contract.ENTITY_TITLE))
                     .withAction(standardEditAction).also()
-                .addProp(MetaModels.Contract_.money()).minWidth(100)
+                    .addProp(MetaModels.Contract_.money()).minWidth(100).also()
+                .addProp(MetaModels.Contract_.startdate()).minWidth(100).also()
+                .addProp(MetaModels.Contract_.enddate()).minWidth(100)
                 //.addProp("prop").minWidth(100).withActionSupplier(builder.getOpenMasterAction(Entity.class)).also()
                 .addPrimaryAction(standardEditAction)
                 .build();
@@ -95,12 +97,14 @@ public class ContractWebUiConfig {
      * @return created entity master
      */
     private EntityMaster<Contract> createMaster(final Injector injector) {
-        final String layout = LayoutComposer.mkGridForMasterFitWidth(1, 2);
+        final String layout = LayoutComposer.mkVarGridForMasterFitWidth(1, 2, 1, 1);
 
         final IMaster<Contract> masterConfig = new SimpleMasterBuilder<Contract>().forEntity(Contract.class)
-                .addProp(MetaModels.Contract_.time()).asDateTimePicker().also()
+                .addProp(MetaModels.Contract_.contractid()).asMultilineText().also()
+                .addProp(MetaModels.Contract_.startdate()).asDatePicker().also()
+                .addProp(MetaModels.Contract_.enddate()).asDatePicker().also()
                 .addProp(MetaModels.Contract_.money()).asMoney().also()
-                .addProp(MetaModels.Contract_.desc()).asSinglelineText().also()
+                .addProp(MetaModels.Contract_.desc()).asMultilineText().also()
                 .addAction(MasterActions.REFRESH).shortDesc("Cancel").longDesc("Cancel action")
                 .addAction(MasterActions.SAVE)
                 .setActionBarLayoutFor(Device.DESKTOP, Optional.empty(), LayoutComposer.mkActionLayoutForMaster())

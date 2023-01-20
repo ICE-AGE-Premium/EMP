@@ -11,7 +11,7 @@ import ua.com.fielden.platform.entity.annotation.CompanionObject;
 import ua.com.fielden.platform.entity.annotation.CompositeKeyMember;
 import ua.com.fielden.platform.entity.annotation.CritOnly;
 import ua.com.fielden.platform.entity.annotation.CritOnly.Type;
-//import ua.com.fielden.platform.entity.annotation.DateOnly;
+import ua.com.fielden.platform.entity.annotation.DateOnly;
 import ua.com.fielden.platform.entity.annotation.MapEntityTo;
 import ua.com.fielden.platform.entity.annotation.MapTo;
 import ua.com.fielden.platform.entity.annotation.Observable;
@@ -20,7 +20,7 @@ import ua.com.fielden.platform.entity.annotation.Title;
 import ua.com.fielden.platform.entity.annotation.DescTitle;
 import ua.com.fielden.platform.entity.annotation.DisplayDescription;
 import ua.com.fielden.platform.entity.annotation.IsProperty;
-//import ua.com.fielden.platform.entity.annotation.DescRequired;
+import ua.com.fielden.platform.entity.annotation.DescRequired;
 import ua.com.fielden.platform.reflection.TitlesDescsGetter;
 import ua.com.fielden.platform.types.Money;
 import ua.com.fielden.platform.utils.Pair;
@@ -32,7 +32,7 @@ import ua.com.fielden.platform.utils.Pair;
  *
  */
 @KeyType(DynamicEntityKey.class)
-@KeyTitle("Time")
+@KeyTitle("Id")
 @CompanionObject(ContractCo.class)
 @MapEntityTo
 @DescTitle("Description")
@@ -48,20 +48,50 @@ public class Contract extends ActivatableAbstractEntity<DynamicEntityKey> {
 
     @IsProperty
     @MapTo
-    @Required
-//    @DateOnly
     @CompositeKeyMember(1)
-    @Title(value = "Time", desc = "Time of actual contract of employee")
-    private Date time;
+    @Title(value = "Contract_Id", desc = "Contract id")
+    private String contractid;
 
     @Observable
-    public Contract setTime(final Date time) {
-        this.time = time;
+    public Contract setContractid(final String contractid) {
+        this.contractid = contractid;
         return this;
     }
 
-    public Date getTime() {
-        return time;
+    public String getContractid() {
+        return contractid;
+    }
+    
+    @IsProperty
+    @MapTo
+    @DateOnly
+    @Title(value = "Startdate", desc = "Start of contract")
+    private Date startdate;
+
+    @Observable
+    public Contract setStartdate(final Date startdate) {
+        this.startdate = startdate;
+        return this;
+    }
+
+    public Date getStartdate() {
+        return startdate;
+    }
+    
+    @IsProperty
+    @MapTo
+    @DateOnly
+    @Title(value = "Enddate", desc = "End of contract")
+    private Date enddate;
+
+    @Observable
+    public Contract setEnddate(final Date enddate) {
+        this.enddate = enddate;
+        return this;
+    }
+
+    public Date getEnddate() {
+        return enddate;
     }
     
     @IsProperty
@@ -78,6 +108,13 @@ public class Contract extends ActivatableAbstractEntity<DynamicEntityKey> {
 
     public Money getMoney() {
         return money;
+    }
+    
+    @Override
+    @Observable
+    public Contract setActive(final boolean active) {
+        super.setActive(active);
+        return this;
     }
 
     

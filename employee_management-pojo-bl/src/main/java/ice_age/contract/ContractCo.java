@@ -14,6 +14,6 @@ import ua.com.fielden.platform.utils.EntityUtils;
 public interface ContractCo extends IEntityDao<Contract> {
 
     static final IFetchProvider<Contract> FETCH_PROVIDER = EntityUtils.fetch(Contract.class).with(
-        MetaModels.Contract_.time(), MetaModels.Contract_.money() , MetaModels.Contract_.desc());
+        MetaModels.Contract_.contractid(), MetaModels.Contract_.startdate(), MetaModels.Contract_.enddate(),MetaModels.Contract_.money() , MetaModels.Contract_.desc());
 
 }

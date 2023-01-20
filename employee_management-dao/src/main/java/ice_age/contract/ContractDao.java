@@ -22,6 +22,11 @@ import ua.com.fielden.platform.entity.annotation.EntityType;
  */
 @EntityType(Contract.class)
 public class ContractDao extends CommonEntityDao<Contract> implements ContractCo {
+    
+    @Override
+    public Contract new_() {
+        return super.new_().setActive(true);
+    }
 
     @Inject
     public ContractDao(final IFilter filter) {
