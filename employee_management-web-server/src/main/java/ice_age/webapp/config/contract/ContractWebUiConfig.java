@@ -77,7 +77,6 @@ public class ContractWebUiConfig {
                 .addTopAction(standardExportAction)
                 .addCrit(MetaModels.Contract_).asMulti().autocompleter(Contract.class).also()
                 .addCrit(MetaModels.Contract_.money()).asRange().decimal()
-//                .addCrit(MetaModels.Contract_.desc()).asMulti().text()
                 .setLayoutFor(Device.DESKTOP, Optional.empty(), layout)
                 .setLayoutFor(Device.TABLET, Optional.empty(), layout)
                 .setLayoutFor(Device.MOBILE, Optional.empty(), layout)
